@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,10 +28,13 @@
   a { color: var(--blue); }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
 
-  .langbar { position: absolute; top: 14px; right: 16px; display: flex; gap: 4px;
-             background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 4px; }
-  .langbar button { font: inherit; font-size: 14px; font-weight: 700; color: var(--muted); background: transparent;
-                    border: 0; border-radius: 999px; padding: 4px 14px; cursor: pointer; }
+  /* ติดมุมขวาบนตลอด เลื่อนหน้าแล้วยังกดสลับภาษาได้ */
+  .langbar { position: fixed; top: 14px; right: 16px; z-index: 10; display: flex; gap: 4px;
+             background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 5px;
+             box-shadow: 0 6px 20px #0009; }
+  .langbar button { font: inherit; font-size: 15px; font-weight: 700; color: var(--muted); background: transparent;
+                    border: 0; border-radius: 999px; padding: 6px 16px; cursor: pointer; }
+  .langbar button:hover { color: var(--ink); }
   .langbar button[aria-pressed="true"] { background: var(--blue); color: #0b1524; }
 
   header { padding: 64px 0 40px; text-align: center; }
@@ -92,12 +95,13 @@
   }
 </style>
 <script>
-  // เลือกภาษาก่อนวาดหน้า กันหน้ากะพริบ: ?lang= → ที่เลือกไว้ → ภาษาของเบราว์เซอร์
+  // เลือกภาษาก่อนวาดหน้า กันหน้ากะพริบ: ?lang= → ที่ผู้ใช้เคยกดเลือก → ค่าเริ่มต้นภาษาอังกฤษ
   (function () {
     var lang = null;
     try { lang = new URLSearchParams(location.search).get('lang'); } catch (e) {}
-    if (lang !== 'th' && lang !== 'en') { try { lang = localStorage.getItem('sw-lang'); } catch (e) {} }
-    if (lang !== 'th' && lang !== 'en') lang = /^th\b/i.test(navigator.language || '') ? 'th' : 'en';
+    // ใช้ชื่อคีย์ใหม่ — รุ่นก่อนจำภาษาของเครื่องไว้ให้อัตโนมัติ ถ้าใช้คีย์เดิม เครื่องภาษาไทยจะยังเห็นหน้าไทย
+    if (lang !== 'th' && lang !== 'en') { try { lang = localStorage.getItem('sw-lang-choice'); } catch (e) {} }
+    if (lang !== 'th' && lang !== 'en') lang = 'en';
     document.documentElement.lang = lang;
   })();
 </script>
@@ -105,8 +109,8 @@
 <body>
 
 <nav class="langbar" aria-label="Language">
-  <button type="button" data-lang="th">ไทย</button>
   <button type="button" data-lang="en">EN</button>
+  <button type="button" data-lang="th">ไทย</button>
 </nav>
 
 <header class="wrap">
@@ -272,9 +276,10 @@
     en: { subject: 'Join the SignalWalk beta', body: 'Gmail on my Android phone: ', copied: 'Copied ✓' }
   };
 
-  function setLang(lang) {
+  // จำภาษาเฉพาะตอนผู้ใช้กดเลือกเอง — ตอนเปิดหน้าไม่จำ ค่าเริ่มต้นจะได้เป็นภาษาอังกฤษจริง
+  function setLang(lang, remember) {
     document.documentElement.lang = lang;
-    try { localStorage.setItem('sw-lang', lang); } catch (e) {}
+    if (remember) { try { localStorage.setItem('sw-lang-choice', lang); } catch (e) {} }
     document.querySelectorAll('.langbar button').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
     });
@@ -291,9 +296,9 @@
   }
 
   document.querySelectorAll('.langbar button').forEach(function (b) {
-    b.addEventListener('click', function () { setLang(b.dataset.lang); });
+    b.addEventListener('click', function () { setLang(b.dataset.lang, true); });
   });
-  setLang(document.documentElement.lang === 'en' ? 'en' : 'th');
+  setLang(document.documentElement.lang === 'th' ? 'th' : 'en');
 
   var joinBtn = document.getElementById('joinBtn');
   var joinBox = document.getElementById('joinBox');
