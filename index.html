@@ -54,6 +54,13 @@
   .join p { margin: 0 0 14px; }
   .join-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
   .join-actions .btn { padding: 10px 18px; font-size: 15px; }
+  /* ข้อเสนอสำหรับผู้ทดสอบรอบนี้ — ลบออกเมื่อเปิดขายบน Google Play */
+  .offer { max-width: 560px; margin: 0 auto 22px; background: #13301c; border: 1px solid var(--green);
+           border-radius: 16px; padding: 14px 20px; }
+  .offer strong { color: #86efac; font-size: 19px; display: block; }
+  .offer span.sub { color: var(--muted); font-size: 15px; }
+  .card.new h3::after { content: "NEW"; margin-left: 8px; font-size: 12px; font-weight: 700; color: #0b1524;
+                        background: var(--blue); border-radius: 6px; padding: 1px 8px; vertical-align: 2px; }
 
   section { padding: 48px 0; border-top: 1px solid var(--line); }
   h2 { font-size: clamp(24px, 4vw, 32px); margin: 0 0 8px; text-align: center; }
@@ -120,6 +127,11 @@
     <span class="th">สำรวจสัญญาณ Wi‑Fi ทีละจุด ทำ heatmap หาตำแหน่ง AP แล้วส่งรายงาน PDF ให้ลูกค้า จบในมือถือเครื่องเดียว</span>
     <span class="en">Measure Wi‑Fi spot by spot, build heatmaps, locate access points and email your customer a PDF report — all from one phone.</span>
   </p>
+  <div class="offer">
+    <strong><span class="th">รับผู้ทดสอบ 30 ท่าน · รับ Pro ฟรี 1 ปี</span><span class="en">30 beta tester spots · 1 year of Pro free</span></strong>
+    <span class="sub th">ระหว่างทดสอบได้รหัสใช้ Pro ครบทุกฟีเจอร์ · ใช้งานจริงครบ 14 วันและส่งความเห็นกลับมา รับสิทธิ์ SignalWalk Pro ฟรี 1 ปี (ปกติ ฿790)</span>
+    <span class="sub en">Testers get a code that unlocks every Pro feature during the test. Use the app for 14 days and send us feedback to get SignalWalk Pro free for one year (normally ฿790).</span>
+  </div>
   <div class="cta">
     <!-- เปิดขายแล้วเปลี่ยนเป็นปุ่มเดียว: ดาวน์โหลดบน Google Play -->
     <button class="btn primary" type="button" id="joinBtn" aria-expanded="false" aria-controls="joinBox">
@@ -129,8 +141,8 @@
   </div>
   <!-- mailto: อย่างเดียวใช้ไม่ได้บนคอมที่ไม่ได้ตั้งโปรแกรมอีเมล จึงมีให้เลือก 3 ทาง -->
   <div class="join" id="joinBox" hidden>
-    <p class="th">ส่งอีเมลถึง <strong>signalwalk.app@gmail.com</strong><br>บอก <strong>Gmail ที่ใช้กับมือถือ Android</strong> แล้วผู้พัฒนาจะส่งลิงก์ติดตั้งให้</p>
-    <p class="en">Email <strong>signalwalk.app@gmail.com</strong><br>with the <strong>Gmail address on your Android phone</strong> and you'll get an install link.</p>
+    <p class="th">ส่งอีเมลถึง <strong>signalwalk.app@gmail.com</strong><br>บอก <strong>Gmail ที่ใช้กับ Play Store บนมือถือ</strong> รุ่นมือถือ และงานที่ทำ (เช่น ช่างไอที ช่างติดตั้งเน็ต เจ้าของร้าน) แล้วผู้พัฒนาจะส่งลิงก์ติดตั้งให้</p>
+    <p class="en">Email <strong>signalwalk.app@gmail.com</strong><br>with the <strong>Gmail address you use for the Play Store</strong>, your phone model and what you do (IT tech, installer, shop owner…), and you'll get an install link.</p>
     <div class="join-actions">
       <a class="btn primary" id="gmailLink" target="_blank" rel="noopener" href="#"><span class="th">เปิดใน Gmail</span><span class="en">Open in Gmail</span></a>
       <a class="btn ghost" id="mailLink" href="#"><span class="th">เปิดแอปอีเมล</span><span class="en">Open email app</span></a>
@@ -186,6 +198,18 @@
         <h3><span class="th">รายงานพร้อมส่งลูกค้า</span><span class="en">Customer-ready reports</span></h3>
         <p class="th">PDF, PNG, CSV (Excel) และ JSON ส่งผ่าน Gmail พร้อมไฟล์แนบ มีลิงก์ Google Maps ของทุกจุด เลือกภาษาไทยหรืออังกฤษ</p>
         <p class="en">PDF, PNG, CSV (Excel) and JSON, emailed through Gmail with a Google Maps link for every point, in English or Thai.</p></div>
+      <div class="card new"><div class="icon">🔍</div>
+        <h3><span class="th">เดินหา AP</span><span class="en">Find an AP</span></h3>
+        <p class="th">ถือมือถือเดินตามลูกศร ▲ แรงขึ้น / ▼ อ่อนลง และเสียงบี๊บที่ถี่ขึ้นเมื่อเข้าใกล้ หา AP ที่ซ่อนบนฝ้าหรือหลังตู้</p>
+        <p class="en">Walk with the phone following the ▲ stronger / ▼ weaker arrow and beeps that speed up as you get closer, to find APs hidden in ceilings or behind cabinets.</p></div>
+      <div class="card new"><div class="icon">🏭</div>
+        <h3><span class="th">ยี่ห้ออุปกรณ์ · เตือน AP ปลอม</span><span class="en">Device maker · fake AP alert</span></h3>
+        <p class="th">บอกผู้ผลิต AP จาก MAC ด้วยฐานข้อมูล IEEE ในเครื่อง และเตือนเมื่อ Wi‑Fi ชื่อเดียวกันมาจากหลายยี่ห้อ ซึ่งอาจเป็น AP ปลอมตั้งชื่อเลียนแบบ</p>
+        <p class="en">Shows each AP's maker from its MAC using the on‑device IEEE registry, and warns when one Wi‑Fi name comes from several makers, a sign of a look‑alike fake AP.</p></div>
+      <div class="card new"><div class="icon">🧩</div>
+        <h3><span class="th">สรุปตาม AP</span><span class="en">Summary by AP</span></h3>
+        <p class="th">รายงานจัดกลุ่ม MAC ของเครื่องเดียวกัน บอกว่าเราเตอร์แต่ละตัวปล่อย Wi‑Fi ชื่ออะไรบ้าง ทั้ง 2.4 / 5 GHz และเครือข่ายแขก</p>
+        <p class="en">Reports group the MACs of one unit and list which Wi‑Fi names each router broadcasts, across 2.4 / 5 GHz and guest networks.</p></div>
     </div>
   </div>
 </section>
@@ -272,8 +296,8 @@
 <script>
   var EMAIL = 'signalwalk.app@gmail.com';
   var TEXT = {
-    th: { subject: 'ขอร่วมทดสอบ SignalWalk', body: 'Gmail ที่ใช้กับมือถือ Android: ', copied: 'คัดลอกแล้ว ✓' },
-    en: { subject: 'Join the SignalWalk beta', body: 'Gmail on my Android phone: ', copied: 'Copied ✓' }
+    th: { subject: 'ขอร่วมทดสอบ SignalWalk', body: 'Gmail ที่ใช้กับ Play Store: \nรุ่นมือถือ / Android: \nงานที่ทำ: ', copied: 'คัดลอกแล้ว ✓' },
+    en: { subject: 'Join the SignalWalk beta', body: 'Gmail I use for the Play Store: \nPhone model / Android version: \nWhat I do: ', copied: 'Copied ✓' }
   };
 
   // จำภาษาเฉพาะตอนผู้ใช้กดเลือกเอง — ตอนเปิดหน้าไม่จำ ค่าเริ่มต้นจะได้เป็นภาษาอังกฤษจริง
